@@ -7,6 +7,9 @@ class League {
         this.matchDaySchedule = [];
     }
 }
+const NFLTeams = ["Minnesota Vikings", "Washington Football Team"]
+const nfl = new League("NFL", NFLTeams);
 
-const nfl = new League("NFL");
-console.log(nfl);
+for (const team of nfl.teams){
+    console.log(team);
+}
