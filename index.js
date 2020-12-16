@@ -64,8 +64,16 @@ class PointsBasedLeague extends League {
 
     }
 }
-
-const NFLTeams = ["Minnesota Vikings", "Washington Football Team"] // Una Const con el nombre de los equipos.
+const nfcNorth = ["Green Bay Packers", "Chicago Bears", "Minnesota Vikings", "Detroit Lions"]
+const nfcEast = ["Washington Redskins", "New York Giants", "Dallas Cowboys", "Philadelphia Eagles"]
+const nfcWest = ["Los Angeles Rams", "Seattle SeaHawks", "Arizona Cardinals", "San Francisco 49ers"]
+const nfcSouth = ["New Orleans Saints", "Tampa Bay Buccaneers", "Carolina Panthers", "Atlanta Falcons"]
+const NFLTeams = [
+    ...nfcNorth,
+    ...nfcEast,
+    ...nfcWest,
+    ...nfcSouth
+] // Una Const con el nombre de los equipos.
 const config = { rounds: 2, pointsPerWin: 3 };
 const nfl = new PointsBasedLeague("NFL", NFLTeams, config); // Otra consts con el nombre de la liga. 
 console.log("CONFIG", nfl.config)
