@@ -33,4 +33,18 @@ customizeTeam(teamName) {
         matchesLost: 0
     }
 }
+    scheduleMatchDay(){
+        const numberOfMatchDays = this.teams.length -1
+        const numberOfMatchesPerMarchDay = this.teams.length / 2
+        for (let i = 0; i< numberOfMatchDays; i++){
+            const matchDay = []
+            for (let j = 0; j < numberOfMatchesPerMarchDay; j++){
+                const match = ["Equipo local", "Equipo visitante"]
+                matchDay.push(match)
+            }
+            // Añadidos los partidos a la jornada
+            this.matchDaySchedule.push(matchDay) // Añadimos jornada a la planificación
+        }
+
+    }
 }

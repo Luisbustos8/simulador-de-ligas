@@ -7,7 +7,11 @@ const nfl = new nflLeague("NFL", nflTeams, config); // Otra consts con el nombre
 
 
 const teamNames = nfl.teams.map(team => team.name)
-
+/*
 teamNames.forEach(function(equipo){
     console.log(equipo)
 })
+*/
+
+nfl.scheduleMatchDay()
+console.log(nfl.matchDaySchedule)
