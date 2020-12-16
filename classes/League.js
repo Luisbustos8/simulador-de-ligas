@@ -1,5 +1,7 @@
+
 const LOCAL_TEAM = 0
 const AWAY_TEAM = 1
+
 
 
 export default class League { // Creamos la clase liga.
@@ -70,9 +72,29 @@ customizeTeam(teamName) {
         })
 
     }
+    setAwayTeams(){
+        const teamNames = this.getTeamNames()
+        const maxAwayTeams = this.teams.length -2 
+        let teamIndex = maxAwayTeams
+        this.matchDaySchedule.forEach(matchDay => {
+            let isFirstMatch = true
+            matchDay.forEach(match => {
+                if (isFirstMatch){
+                    isFirstMatch = false
+                }else{
+                    match[AWAY_TEAM] = teamNames[teamIndex]
+                    teamIndex--
+                    if (teamIndex <0) {
+                        teamIndex = maxAwayTeams
+                    }
+                }
+            })
+        })
+    }
     scheduleMatchDays(){
         this.initSchedule()
         this.setLocalTeams()
+        this.serAwayTeams()
 
         
     }
