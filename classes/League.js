@@ -54,7 +54,7 @@ customizeTeam(teamName) {
 
     }
     getTeamNames() {
-        const teamNames = this.teams.map(team => team.name)
+        return this.teams.map(team => team.name)
     }
     setLocalTeams(){
         const teamNames = this.getTeamNames()
@@ -91,10 +91,27 @@ customizeTeam(teamName) {
             })
         })
     }
+    fixLastTeamSchedule(){
+        let matchDayNumber = 1
+        const teamNames = this.getTeamNames()
+        const lastTeamName = teamNames[teamNames.length -1]
+        this.matchDaySchedule.forEach(matchDay => {
+            const firstMatch = matchDay[0]
+            // Establecer el último equipo de la lista como visitante o local alternativamente
+            if (matchDayNumber % 2 == 0) { // juega en casa
+                firstMatch[AWAY_TEAM]= firstMatch[LOCAL_TEAM]
+                firstMatch[LOCAL_TEAM] = lastTeamName
+            }else{ // juega como vistante
+                firstMatch[AWAY_TEAM] = lastTeamName
+            }
+            matchDayNumber++
+        })
+    }
     scheduleMatchDays(){
         this.initSchedule()
         this.setLocalTeams()
-        this.serAwayTeams()
+        this.setAwayTeams()
+        this.fixLastTeamSchedule()
 
         
     }
