@@ -2,10 +2,11 @@ class League { // Creamos la clase liga.
 
     constructor(name, teams=[], config={}){ //Constructor con sus parametros;
         this.name = name;
-        this.teams = teams;
+        
         this.matchDaySchedule = [];
 
-       
+
+       this.setupTeams(teams);
         this.setup(config);
         
     }
@@ -14,8 +15,25 @@ class League { // Creamos la clase liga.
         this.config = Object.assign(this.defaultConfig, config);
         
     }
-}
+    setupTeams(teamNames) {
+        this.teams = []
+        for(const teamName of teamNames) {
+            const team = this.customizeTeam(teamName)
+            this.teams.push(team)
+        }
+    
+        
+    }
 
+customizeTeam(teamName) {
+    return {
+        name: teamName,
+        matchesWon: 0,
+        matchesDrawn: 0,
+        matchesLost: 0
+    }
+}
+}
 
 class PointsBasedLeague extends League {
     constructor (name, teams=[], config={}){
@@ -30,8 +48,23 @@ class PointsBasedLeague extends League {
             pointsPerLose: 0
         }
         this.config = Object.assign(defaultConfig, config)
+    }    
+    customizeTeam(teamName){
+        const customizeTeam = super.customizeTeam(teamName) // Con super hacemos referencia a la clase madre
+        //customizeTeam.points = 0
+        //customizeTeam.goalsFor = 0
+        //customizeTeam.goalsAgainst = 0
+        //return customizeTeam
+        return {
+            points:0,
+            goalsFor:0,
+            goalsAgainst:0,
+            ...customizeTeam
+        }
+
     }
 }
+
 const NFLTeams = ["Minnesota Vikings", "Washington Football Team"] // Una Const con el nombre de los equipos.
 const config = { rounds: 2, pointsPerWin: 3 };
 const nfl = new PointsBasedLeague("NFL", NFLTeams, config); // Otra consts con el nombre de la liga. 
