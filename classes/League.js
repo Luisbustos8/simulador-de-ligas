@@ -1,3 +1,7 @@
+const LOCAL_TEAM = 0
+const AWAY_TEAM = 1
+
+
 export default class League { // Creamos la clase liga.
 
     constructor(name, teams=[], config={}){ //Constructor con sus parametros;
@@ -33,7 +37,7 @@ customizeTeam(teamName) {
         matchesLost: 0
     }
 }
-    scheduleMatchDay(){
+    initSchedule(){
         const numberOfMatchDays = this.teams.length -1
         const numberOfMatchesPerMarchDay = this.teams.length / 2
         for (let i = 0; i< numberOfMatchDays; i++){
@@ -46,5 +50,30 @@ customizeTeam(teamName) {
             this.matchDaySchedule.push(matchDay) // Añadimos jornada a la planificación
         }
 
+    }
+    getTeamNames() {
+        const teamNames = this.teams.map(team => team.name)
+    }
+    setLocalTeams(){
+        const teamNames = this.getTeamNames()
+        const maxHomeTeams = this.teams.length - 2
+        let teamIndex = 0
+        this.matchDaySchedule.forEach(matchDay =>{ //Por cada jornada
+            matchDay.forEach(match => {
+                //establecer el equipo local
+                match[LOCAL_TEAM] = teamNames[teamIndex]
+                teamIndex++
+                if (teamIndex > maxHomeTeams){
+                    teamIndex = 0
+                }                        
+            })
+        })
+
+    }
+    scheduleMatchDays(){
+        this.initSchedule()
+        this.setLocalTeams()
+
+        
     }
 }

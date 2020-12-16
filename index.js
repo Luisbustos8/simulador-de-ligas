@@ -13,5 +13,5 @@ teamNames.forEach(function(equipo){
 })
 */
 
-nfl.scheduleMatchDay()
+nfl.scheduleMatchDays()
 console.log(nfl.matchDaySchedule)
