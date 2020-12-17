@@ -1,3 +1,15 @@
+Array.prototype.shuffle = function()
+{
+	var i = this.length;
+	while (i)
+	{
+		var j = Math.floor(Math.random() * i);
+		var t = this[--i];
+		this[i] = this[j];
+		this[j] = t;
+	}
+	return this;
+}
 
 const LOCAL_TEAM = 0
 const AWAY_TEAM = 1
@@ -27,7 +39,7 @@ export default class League { // Creamos la clase liga.
             const team = this.customizeTeam(teamName)
             this.teams.push(team)
         }
-    
+        this.teams.shuffle()
         
     }
 
