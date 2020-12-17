@@ -14,4 +14,13 @@ teamNames.forEach(function(equipo){
 */
 
 nfl.scheduleMatchDays()
-console.log(nfl.matchDaySchedule)
+
+let i = 1
+
+nfl.matchDaySchedule.forEach(matchday => {
+    console.log(`WEEK ${i}`)
+    matchday.forEach(match => {
+        console.log(match.join(" VS "))
+    })
+    i++
+})
