@@ -20,12 +20,10 @@ export default class League { // Creamos la clase liga.
 
     constructor(name, teams=[], config={}){ //Constructor con sus parametros;
         this.name = name;
-        
         this.matchDaySchedule = [];
-
-
-       this.setupTeams(teams);
+        this.setupTeams(teams);
         this.setup(config);
+        this.summaries = []
         
     }
     setup(config){
@@ -153,15 +151,30 @@ customizeTeam(teamName) {
 
     }
     start(){
+        
         for (const matchDay of this.matchDaySchedule){
+            const matchDaySummary = {
+                results: [],
+                standings: undefined
+
+            } 
             for (const match of matchDay) {
                 const result = this.play(match)
                 this.updateTeams(result)
+                matchDaySummary.results.push(result)
             }
-            console.log("Calcular Clasificación")
-            console.log("Guardar resumen de la jornada")
+            this.getStandings()
+            matchDaySummary.standings = this.teams.map(team => Object.assign({}, team))
+            this.summaries.push(matchDaySummary)
+           
+
+            //console.log("Calcular Clasificación")
+            //console.log("Guardar resumen de la jornada")
         }
 
+    }
+    getStandings(){
+        throw new Error("getStanding not implemented")
     }
     play(match){
         throw new Error ("play method not implemented")
@@ -169,6 +182,7 @@ customizeTeam(teamName) {
     updateTeams(result) {
         throw new Error("update method not implemented")
     }
+    
 
 
 }

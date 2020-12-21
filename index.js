@@ -29,3 +29,14 @@ nfl.matchDaySchedule.forEach(matchDay => {
 
 // Comenzar la liga
 nfl.start()
+i = 1
+nfl.summaries.forEach(summary => {
+    console.log(`RESUMEN JORNADA ${i}`)
+    summary.results.forEach(result => {
+        console.log(`${result.homeTeam} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeam}`)
+    })
+    console.table(summary.standings)
+    i++
+})
+
+

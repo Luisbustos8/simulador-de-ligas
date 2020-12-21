@@ -48,10 +48,53 @@ export default class PointsBasedLeague extends League {
         return this.teams.find(team => team.name ==name)
     }
     updateTeams(result){
-        console.log("updateTeams", result)
+        
         const homeTeam = this.getTeamForName(result.homeTeam)
         const awayTeam = this.getTeamForName(result.awayTeam)
-        console.log("TEAMS", homeTeam, awayTeam)
+
+        homeTeam.goalsFor += result.homeGoals
+        homeTeam.goalsAgainst += result.awayGoals
+        awayTeam.goalsFor += result.awayGoals
+        awayTeam.goalsAgainst += result.homeGoals
+
+        if (result.homeGoals > result.awayGoals) {
+            homeTeam.points += this.config.pointsPerWin
+            homeTeam.matchesWon += 1
+            awayTeam.points += this.config.pointsPerLose
+            awayTeam.matchesLost += 1
+        }else if (result.homeGoals < result.awayGoals){
+            awayTeam.points += this.config.pointsPerWin
+            awayTeam.matchesWon += 1
+            homeTeam.points += this.config.pointsPerLose
+            homeTeam.matchesLost += 1
+        }else{
+            homeTeam.points += this.config.pointsPerDraw
+            homeTeam.matchesDrawn += 1
+            awayTeam.points += this.config.pointsPerDraw
+            awayTeam.matchesDrawn += 1
+        }
+        
+    }
+    getStandings(){
+        this.teams.sort(function(teamA, teamB) {
+            if (teamA.points > teamB.points){
+                return -1
+            }else if (teamA.points < teamB.points){
+                return 1
+            }else{
+                const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
+                const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
+                if (goalsDiffA > goalsDiffB) {
+                    return -1
+                }else if(goalsDiffA < goalsDiffB){
+                    return 1
+                }else{
+                    return 0
+                }
+            }
+        })
+        console.log("Standings")
+        console.table(this.teams)
         
     }
 }
