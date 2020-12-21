@@ -14,13 +14,18 @@ teamNames.forEach(function(equipo){
 */
 
 nfl.scheduleMatchDays()
-
 let i = 1
-
-nfl.matchDaySchedule.forEach(matchday => {
-    console.log(`WEEK ${i}`)
-    matchday.forEach(match => {
-        console.log(match.join(" VS "))
+nfl.matchDaySchedule.forEach(matchDay => {
+    console.log(`JORNADA ${i}`)
+    matchDay.forEach(match => {
+        const home = match[0] != null ? match[0] : 'DESCANSA'
+        const away = match[1] != null ? match[1] : 'DESCANSA'
+        console.log(`${home} vs ${away}`)
     })
     i++
 })
+
+
+
+// Comenzar la liga
+nfl.start()

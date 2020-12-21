@@ -11,8 +11,8 @@ Array.prototype.shuffle = function()
 	return this;
 }
 
-const LOCAL_TEAM = 0
-const AWAY_TEAM = 1
+export const LOCAL_TEAM = 0
+export const AWAY_TEAM = 1
 
 
 
@@ -152,4 +152,23 @@ customizeTeam(teamName) {
         return newRound
 
     }
+    start(){
+        for (const matchDay of this.matchDaySchedule){
+            for (const match of matchDay) {
+                const result = this.play(match)
+                this.updateTeams(result)
+            }
+            console.log("Calcular Clasificación")
+            console.log("Guardar resumen de la jornada")
+        }
+
+    }
+    play(match){
+        throw new Error ("play method not implemented")
+    }
+    updateTeams(result) {
+        throw new Error("update method not implemented")
+    }
+
+
 }
