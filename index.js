@@ -35,7 +35,19 @@ nfl.summaries.forEach(summary => {
     summary.results.forEach(result => {
         console.log(`${result.homeTeam} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeam}`)
     })
-    console.table(summary.standings)
+    console.table(summary.standings.map(team=> {
+        return {
+            Team: team.name,
+            Points: team.points,
+            PlayedMatches: team.matchesWon + team.matchesDrawn + team.matchesLost,
+            won: team.matchesWon,
+            Drawn: team.matchesDrawn,
+            Lost: team.matchesLost,
+            GoalsFor: team.goalsFor,
+            GoalsAgainst: team.goalsAgainst,
+            GoalDiff: team.goalsFor - team.goalsAgainst
+        }
+    }))
     i++
 })
 
